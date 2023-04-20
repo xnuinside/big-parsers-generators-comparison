@@ -1,0 +1,15 @@
+RULES
+    float = <DIGIT+ '.' DIGIT+>
+    integer = <DIGIT+>
+    date = <DIGIT{4} '-' DIGIT{2} '-' DIGIT{2}>
+    date_range = date / date ' / ' date
+    and_expr = (date / float / integer) ' & ' (date / float / integer)
+    minus_expr = (date / float / integer) ' - ' (date / float / integer)
+    value = float / integer / date_range / date / and_expr / minus_expr / ~r"[^ \t\r\n]+"
+    key = ~r"[a-zA-Z_][a-zA-Z0-9_]*"
+    pair = key ':' value
+
+START = pair (WS? '\n' WS? pair)* WS? EOF
+
+WS = ' ' / '\t'
+DIGIT = '0' / '1' / '2' / '3' / '4' / '5' / '6' / '7' / '8' / '9'
