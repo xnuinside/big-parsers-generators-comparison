@@ -258,7 +258,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "a8f2cf722b912c557e8db6b463d844b06e48e05b8f6e591b0174cdfdad697ecc"
+content-hash = "c0d154f80b4de7f9de986023cec12cee8665d71e2d85fa9bbf5e19ba3af86654"
 
 [metadata.files]
 arpeggio = [

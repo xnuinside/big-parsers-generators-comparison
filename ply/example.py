@@ -90,8 +90,9 @@ for line in lines.split('\n'):
     if not line.strip():
         continue
     parsed_data = parser.parse(line.strip())
-    key = parsed_data[0]
-    value = parsed_data[1]
-    results.append((key, value))
+    if parsed_data:
+        key = parsed_data[0]
+        value = parsed_data[1]
+        results.append((key, value))
 
 print(results)
