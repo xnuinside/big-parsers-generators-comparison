@@ -1,23 +1,31 @@
-from pyparsing import Word, alphas, nums, Literal, Optional, Suppress, Group, delimitedList, LineEnd, oneOf
+from pyparsing import Word, alphas, nums, oneOf, Optional, Combine, ParseException
+from datetime import datetime
 
-# Define the grammar for the key-value pairs
-key = Word(alphas) + Optional(Word(alphas+'_'))
-colon = Suppress(Literal(':'))
-float_value = Word(nums+'.').setParseAction(lambda t: float(t[0]))
-int_value = Word(nums).setParseAction(lambda t: int(t[0]))
-date = Word(nums+'-')
-date_range = Group(date + Suppress(Literal('/')) + date)
-value = float_value | int_value | date | date_range
-line = Group(key + colon + value + LineEnd())
+# Define the grammar
+key = Word(alphas)
+integer = Word(nums)
+date = Combine(integer + '-' + integer + '-' + integer)
+date_range = date + Optional(oneOf("/ -") + date)
+value = (integer | date_range) + Optional(oneOf("& -"))
+entry = key + ':' + value
 
-# Define the grammar for the operators
-op = oneOf('& -')
-expr = value + Optional(Suppress(op) + value)
+# Define the parser function
+def parse_lines(lines):
+    parsed_data = []
 
-# Define the grammar for the key with operator
-key_expr = key + Group(ampersand | dash + key)
+    for line in lines.split('\n'):
+        line = line.strip()
+        try:
+            parsed_line = entry.parseString(line)
+            key_token = parsed_line[0]
+            value_tokens = tuple(parsed_line[1:])
+            parsed_data.append((key_token, value_tokens))
+        except ParseException:
+            print(f"Failed to parse line: {line}")
 
-# Parse the lines and return the results as a list of tuples
+    return parsed_data
+
+# Input lines
 lines = """clients: 23.05
 clients: 2024-12-01
 clients: 2024-12-01 / 2025-12-01
@@ -26,13 +34,6 @@ cats: 2019-10-10
 cats & orders: 2019-10-10
 cats - orders: 2024-12-01 / 2025-12-01"""
 
-results = []
-for line in lines.split('\n'):
-    if not line.strip():
-        continue
-    parsed_data = line.strip().parseString(line)
-    key_tokens = parsed_data[0].asList()
-    value_tokens = expr.parseString(parsed_data[2]).asList()
-    results.append((key_tokens, value_tokens))
-
-print(results)
+# Run the parser and print the output
+output = parse_lines(lines)
+print(output)

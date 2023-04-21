@@ -82,7 +82,9 @@ After installing the required dependencies, you can run the example.py file in t
 
 ```
 
-### OpenAI ChatGPT + Parsers
+## OpenAI ChatGPT + Parsers
+
+### ChatGPT 3.5 Results
 
 All of the samples in this repository were generated using the OpenAI ChatGPT model. While I find parsers interesting, I don't have enough time to create the same parser using different libraries manually. Instead, I used the code snippets provided and reviewed them myself. The results of my review can be found at the bottom of each code snippet.
 
@@ -95,6 +97,8 @@ python code with pyparsing library to parse lines: """clients: 23.05
     cats: 2019-10-10
     cats & orders: 2019-10-10
     cats - orders: 2024-12-01 / 2025-12-01"""
+
+I want to get as output list of pairs like tuple with all tokens in key and tuple with tokens in values. Symbols like '&', '-', '/' should be as a separate tokens.
 ```
 
 I provided a description of the output format that I wanted to receive, and then used the OpenAI ChatGPT model to generate code snippets for different parser libraries. 
@@ -111,7 +115,7 @@ List of 'failed' ChatGPT code snippets:
 - lrparsing
 - parse
 - parsec
-- parsiminious 
+- parsiminious
 - parsley
 - pegen
 - sly
@@ -121,6 +125,13 @@ List of 'failed' ChatGPT code snippets:
 
 :D 
 
+- pyparsing - does not failed with errors but don n't parse validly some lines
+
 To put it simply, it seems that ChatGPT was only able to generate valid code for the Python regex library and pure Python's re module. I've had a funny experience with ChatGPT generating code that looked like it would work for a given library, but turned out to be non-functional.
 
-I plan to write an article about this soon to discuss the limitations and capabilities of using AI-generated code snippets. It's worth noting that if you point out to ChatGPT that its code snippets contain errors, it will simply generate new code based on its own interpretation of the library syntax.
+ It's worth noting that if you point out to ChatGPT that its code snippets contain errors, it will simply generate new code based on its own interpretation of the library syntax.
+
+
+### Chat GPT 4 Results
+
+I attempted a similar approach by comparing the results from ChatGPT 4 and ChatGPT 3.5. However, the generated outputs were quite similar, with both models producing visually close yet ultimately non-functional examples.
