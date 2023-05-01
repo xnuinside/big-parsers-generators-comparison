@@ -2,6 +2,13 @@
 
 Status: In progress. Updates will be available soon. Funny experiments.
 
+Examples, that works well right now*:
+
+- lark_/
+- re_/
+- regex_/
+  
+\* story about how I tried ChatGPT & failed - at the bottom of the readme
 This repository contains samples for parsing the same input lines using different syntax parser generators and parser combinator libraries in Python. I tried to generate them with ChatGPT - and results you can see at the bottow of README
 
 The purpose of this repository is to demonstrate the differences between parser grammars and how they are defined when working with different libraries.
