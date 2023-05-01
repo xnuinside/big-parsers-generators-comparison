@@ -38,7 +38,7 @@ In each example, we expect to send a batch of input lines and receive output in 
 [(['clients'], [23.05]), (['clients'], ['2024-12-01']), (['clients'], [('2024-12-01', '/', '2025-12-01')]), (['orders'], [2017]), (['cats'], ['2019-10-10']), (['cats', '&', 'orders'], ['2019-10-10']), (['cats', '-', 'orders'], [('2024-12-01', '/', '2025-12-01')])]
 ```
 
-This repo contains comparison and examples for 20  syntax parsers (generators) libraries:
+This repo contains comparison and examples for 16 syntax parsers (generators) libraries + 2 examples with regexp:
 
 | No. | Name         | URL                                      | Parsing Algorithms              | Grammar Types               |
 |-----|--------------|------------------------------------------|---------------------------------|------------------------------|
@@ -59,13 +59,7 @@ This repo contains comparison and examples for 20  syntax parsers (generators) l
 | 15  | Waxeye       | https://github.com/waxeye-org/waxeye      | PEG                             | PEG                          |
 | 16  | Pegen        | https://github.com/we-like-parsers/pegen  | PEG                             | PEG                          |
 
-(Parser combinator libraries):
-
-1.  Parsec - https://pythonhosted.org/parsec/
-2.  Parsy - https://github.com/python-parsy/parsy
-
-
-Regex (why not?) - people often ask me if it's possible to parse the same input lines using regular expressions;
+Regex (why not?) - people often ask me if it's possible to parse the same input lines using regular expressions; Configparser, for example, written only with regex.
 1. re - https://docs.python.org/3/library/re.html
 2. regex - https://pypi.org/project/regex/
 
