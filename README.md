@@ -5,6 +5,8 @@ Status: In progress. Updates will be available soon. Funny experiments.
 Examples, that works well right now*:
 
 - lark_/
+- ply_/
+- parsimonious_/
 - re_/
 - regex_/
   

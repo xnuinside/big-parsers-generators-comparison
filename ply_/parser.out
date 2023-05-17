@@ -1,0 +1,247 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> lines
+Rule 1     lines -> line
+Rule 2     lines -> lines line
+Rule 3     line -> KEY COLON value
+Rule 4     value -> FLOAT
+Rule 5     value -> INT
+Rule 6     value -> DATE
+Rule 7     value -> DATE RANGE DATE
+Rule 8     value -> expr
+Rule 9     expr -> value AND value
+Rule 10    expr -> value MINUS value
+
+Terminals, with rules where they appear
+
+AND                  : 9
+COLON                : 3
+DATE                 : 6 7 7
+FLOAT                : 4
+INT                  : 5
+KEY                  : 3
+MINUS                : 10
+RANGE                : 7
+error                : 
+
+Nonterminals, with rules where they appear
+
+expr                 : 8
+line                 : 1 2
+lines                : 2 0
+value                : 3 9 9 10 10
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . lines
+    (1) lines -> . line
+    (2) lines -> . lines line
+    (3) line -> . KEY COLON value
+
+    KEY             shift and go to state 3
+
+    lines                          shift and go to state 1
+    line                           shift and go to state 2
+
+state 1
+
+    (0) S' -> lines .
+    (2) lines -> lines . line
+    (3) line -> . KEY COLON value
+
+    KEY             shift and go to state 3
+
+    line                           shift and go to state 4
+
+state 2
+
+    (1) lines -> line .
+
+    KEY             reduce using rule 1 (lines -> line .)
+    $end            reduce using rule 1 (lines -> line .)
+
+
+state 3
+
+    (3) line -> KEY . COLON value
+
+    COLON           shift and go to state 5
+
+
+state 4
+
+    (2) lines -> lines line .
+
+    KEY             reduce using rule 2 (lines -> lines line .)
+    $end            reduce using rule 2 (lines -> lines line .)
+
+
+state 5
+
+    (3) line -> KEY COLON . value
+    (4) value -> . FLOAT
+    (5) value -> . INT
+    (6) value -> . DATE
+    (7) value -> . DATE RANGE DATE
+    (8) value -> . expr
+    (9) expr -> . value AND value
+    (10) expr -> . value MINUS value
+
+    FLOAT           shift and go to state 7
+    INT             shift and go to state 8
+    DATE            shift and go to state 9
+
+    value                          shift and go to state 6
+    expr                           shift and go to state 10
+
+state 6
+
+    (3) line -> KEY COLON value .
+    (9) expr -> value . AND value
+    (10) expr -> value . MINUS value
+
+    KEY             reduce using rule 3 (line -> KEY COLON value .)
+    $end            reduce using rule 3 (line -> KEY COLON value .)
+    AND             shift and go to state 11
+    MINUS           shift and go to state 12
+
+
+state 7
+
+    (4) value -> FLOAT .
+
+    AND             reduce using rule 4 (value -> FLOAT .)
+    MINUS           reduce using rule 4 (value -> FLOAT .)
+    KEY             reduce using rule 4 (value -> FLOAT .)
+    $end            reduce using rule 4 (value -> FLOAT .)
+
+
+state 8
+
+    (5) value -> INT .
+
+    AND             reduce using rule 5 (value -> INT .)
+    MINUS           reduce using rule 5 (value -> INT .)
+    KEY             reduce using rule 5 (value -> INT .)
+    $end            reduce using rule 5 (value -> INT .)
+
+
+state 9
+
+    (6) value -> DATE .
+    (7) value -> DATE . RANGE DATE
+
+    AND             reduce using rule 6 (value -> DATE .)
+    MINUS           reduce using rule 6 (value -> DATE .)
+    KEY             reduce using rule 6 (value -> DATE .)
+    $end            reduce using rule 6 (value -> DATE .)
+    RANGE           shift and go to state 13
+
+
+state 10
+
+    (8) value -> expr .
+
+    AND             reduce using rule 8 (value -> expr .)
+    MINUS           reduce using rule 8 (value -> expr .)
+    KEY             reduce using rule 8 (value -> expr .)
+    $end            reduce using rule 8 (value -> expr .)
+
+
+state 11
+
+    (9) expr -> value AND . value
+    (4) value -> . FLOAT
+    (5) value -> . INT
+    (6) value -> . DATE
+    (7) value -> . DATE RANGE DATE
+    (8) value -> . expr
+    (9) expr -> . value AND value
+    (10) expr -> . value MINUS value
+
+    FLOAT           shift and go to state 7
+    INT             shift and go to state 8
+    DATE            shift and go to state 9
+
+    value                          shift and go to state 14
+    expr                           shift and go to state 10
+
+state 12
+
+    (10) expr -> value MINUS . value
+    (4) value -> . FLOAT
+    (5) value -> . INT
+    (6) value -> . DATE
+    (7) value -> . DATE RANGE DATE
+    (8) value -> . expr
+    (9) expr -> . value AND value
+    (10) expr -> . value MINUS value
+
+    FLOAT           shift and go to state 7
+    INT             shift and go to state 8
+    DATE            shift and go to state 9
+
+    value                          shift and go to state 15
+    expr                           shift and go to state 10
+
+state 13
+
+    (7) value -> DATE RANGE . DATE
+
+    DATE            shift and go to state 16
+
+
+state 14
+
+    (9) expr -> value AND value .
+    (9) expr -> value . AND value
+    (10) expr -> value . MINUS value
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    KEY             reduce using rule 9 (expr -> value AND value .)
+    $end            reduce using rule 9 (expr -> value AND value .)
+    AND             shift and go to state 11
+    MINUS           shift and go to state 12
+
+  ! AND             [ reduce using rule 9 (expr -> value AND value .) ]
+  ! MINUS           [ reduce using rule 9 (expr -> value AND value .) ]
+
+
+state 15
+
+    (10) expr -> value MINUS value .
+    (9) expr -> value . AND value
+    (10) expr -> value . MINUS value
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    KEY             reduce using rule 10 (expr -> value MINUS value .)
+    $end            reduce using rule 10 (expr -> value MINUS value .)
+    AND             shift and go to state 11
+    MINUS           shift and go to state 12
+
+  ! AND             [ reduce using rule 10 (expr -> value MINUS value .) ]
+  ! MINUS           [ reduce using rule 10 (expr -> value MINUS value .) ]
+
+
+state 16
+
+    (7) value -> DATE RANGE DATE .
+
+    AND             reduce using rule 7 (value -> DATE RANGE DATE .)
+    MINUS           reduce using rule 7 (value -> DATE RANGE DATE .)
+    KEY             reduce using rule 7 (value -> DATE RANGE DATE .)
+    $end            reduce using rule 7 (value -> DATE RANGE DATE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for AND in state 14 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 14 resolved as shift
+WARNING: shift/reduce conflict for AND in state 15 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 15 resolved as shift
