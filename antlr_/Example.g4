@@ -1,4 +1,4 @@
-grammar KeyVal;
+grammar Example;
 
 start : line+ ;
 
@@ -9,8 +9,7 @@ key : ID ;
 value : FLOAT
       | INT
       | DATE
-      | DATE_RANGE
-      | expr ;
+      | DATE_RANGE;
 
 expr : value op=( '&' | '-' ) value ;
 

@@ -1,16 +1,16 @@
 from antlr4 import *
-from KeyValLexer import KeyValLexer
-from KeyValParser import KeyValParser
-from KeyValVisitor import KeyValVisitor
+from ExampleLexer import ExampleLexer
+from ExampleParser import ExampleParser
+from ExampleListener import ExampleListener
 
 # Define the actions for the parser
-class KeyValVisitorImpl(KeyValVisitor):
-    def visitLine(self, ctx:KeyValParser.LineContext):
+class ExampleVisitorImpl(ExampleListener):
+    def visitLine(self, ctx:ExampleParser.LineContext):
         key = ctx.key().getText()
         value = self.visit(ctx.value())
         return (key, value)
 
-    def visitValue(self, ctx:KeyValParser.ValueContext):
+    def visitValue(self, ctx:ExampleParser.ValueContext):
         if ctx.FLOAT():
             return float(ctx.FLOAT().getText())
         elif ctx.INT():
@@ -24,7 +24,7 @@ class KeyValVisitorImpl(KeyValVisitor):
         elif ctx.expr():
             return self.visit(ctx.expr())
 
-    def visitExpr(self, ctx:KeyValParser.ExprContext):
+    def visitExpr(self, ctx:ExampleParser.ExprContext):
         op = ctx.op.text
         left = self.visit(ctx.left)
         right = self.visit(ctx.right)
@@ -40,12 +40,12 @@ cats & orders: 2019-10-10
 cats - orders: 2024-12-01 / 2025-12-01"""
 
 input_stream = InputStream(lines)
-lexer = KeyValLexer(input_stream)
+lexer = ExampleLexer(input_stream)
 stream = CommonTokenStream(lexer)
-parser = KeyValParser(stream)
+parser = ExampleParser(stream)
 tree = parser.start()
 
-visitor = KeyValVisitorImpl()
+visitor = ExampleVisitorImpl()
 results = []
 for line in tree.line():
     key, value = visitor.visit(line)
